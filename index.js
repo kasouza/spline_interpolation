@@ -270,6 +270,8 @@ function splineInterpolation(points) {
   const matrix = [];
   const constantMatrix = [];
 
+  const nCoefficients = 3;
+
   // Equations at internal points are equal
   for (let equation = 0; equation < nEquations; equation++) {
     for (let i = 0; i < 2; i++) {
@@ -285,8 +287,6 @@ function splineInterpolation(points) {
         point.x,
         1,
       ];
-
-      const nCoefficients = coefficients.length;
 
       const row = [];
 
@@ -327,8 +327,6 @@ function splineInterpolation(points) {
       -1,
       0,
     ];
-
-    const nCoefficients = coefficients.length;
 
     for (let j = 0; j < nTotalEquations; j++) {
       if (j >= (eq1 * nCoefficients) && j < ((eq1 + 1) * nCoefficients)) {
@@ -372,7 +370,7 @@ function splineInterpolation(points) {
     equations.push({
       xMin: p1.x,
       xMax: p2.x,
-      coefficients: result.slice(i * 3, (i + 1) * 3)
+      coefficients: result.slice(i * nCoefficients, (i + 1) * nCoefficients)
     });
   }
 
@@ -401,14 +399,6 @@ function splineInterpolation(points) {
   return newPoints;
 }
 
-function printMatrix(a) {
-  for (var i = 0; i < a[i].length; i++) {
-    for (var z = 0; z < a.length; z++) {
-      console.log(a[z][i]);
-    }
-  }
-}
-
 function matrices() {
   const points = [
     new Point(1, 5),
@@ -428,8 +418,6 @@ function matrices() {
   drawLines(canvas, points, false, true);
   drawLines(canvas, interpolated, true, false);
 
-
-  d
   //const matrix = [
   //[2, 4, 1],
   //[3, 2, 1],
